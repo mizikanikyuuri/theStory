@@ -1,0 +1,15 @@
+div.PortalNav{
+ background-color: #F8F5CE;
+}
+
+div.PortalNav div.nav-item{
+    margin-left:2rem;
+    margin-right:2rem;
+    background-color: #dadada;
+   }
+img.LogoPicture{
+    position:absolute;
+    top:4rem;
+    left:4rem;
+    z-index: -0.5;
+}

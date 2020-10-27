@@ -1,0 +1,5 @@
+/app/protostory/portal/node_modules/
+/app/protostory/gamemain/node_modules/
+/app/get-pip.py
+.vagrant/
+.vscode/

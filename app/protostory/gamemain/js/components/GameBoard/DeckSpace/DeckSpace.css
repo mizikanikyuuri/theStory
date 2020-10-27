@@ -1,0 +1,14 @@
+div.the-story-deck-space{
+    position: absolute;
+    top:38%;
+    left:5%;
+    display:flex;
+    border:1px solid;
+}
+div.the-story-deck-space-first-deck{
+    margin-left:1rem;
+    margin-right:1rem;
+}
+div.the-story-deck-space-deck{
+    margin-right:1rem;
+}

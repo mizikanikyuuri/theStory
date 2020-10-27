@@ -1,0 +1,6 @@
+button.the-story-turn-end-button{
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%) ;
+}

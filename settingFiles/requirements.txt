@@ -1,1 +1,11 @@
-Django>=3.0.7
+Django
+djangorestframework
+psycopg2-binary
+channels
+channels_redis
+redis
+supervisor
+uwsgi
+selenium
+websockets
+uvicorn

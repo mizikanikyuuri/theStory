@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -37,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'channels',
     'portal',
+    'gamemain',
 ]
 
 MIDDLEWARE = [
@@ -69,8 +73,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'protostory.wsgi.application'
-
-
+ASGI_APPLICATION = 'protostory.routing.application'
+# Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -105,7 +119,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+# REST_FRAMEWORK_SETTINGS
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

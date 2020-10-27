@@ -1,0 +1,14 @@
+div.the-story-status-bar{
+    border: 1rem solid;
+    width: 100%;
+}
+div.the-story-user-status-bar{
+    position: absolute;
+    bottom:0px;
+    left:0px;
+}
+div.the-story-opponent-status-bar{
+    position: absolute;
+    top:0px;
+    left:0px;
+}

@@ -1,0 +1,16 @@
+div.the-story-artifact-space{
+    box-shadow:
+    0 2px 2px 0 rgb(224, 224, 224),
+    0 4px 4px 0 rgb(194, 194, 194),
+    0 6px 6px 0 rgb(163, 163, 163)
+}
+div.the-story-user-artifact-space{
+    position: absolute;
+    top:67%;
+    left:5%;
+}
+div.the-story-opponent-artifact-space{
+    position: absolute;
+    top:12%;
+    left:5%;
+}

@@ -1,0 +1,23 @@
+div.portal-home{
+  position:relative;
+}
+img.home-content-background {
+    width: 100%;
+    z-index: -1;
+    margin:auto;
+  }
+div.user-sticker {
+  position:absolute;
+  top:65%;
+  left:75%;
+}
+div.start-sticker {
+  position:absolute;
+  top:75%;
+  left:75%;
+}
+div.user-register {
+  position:absolute;
+  top:50%;
+  left:50%;
+}

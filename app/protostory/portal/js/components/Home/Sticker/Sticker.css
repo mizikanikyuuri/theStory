@@ -1,0 +1,10 @@
+div.the-story-sticker{
+    background-image: url("base_sticker.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: max-content;
+    height: max-content;
+   }
+div.the-story-sticker-click-able{
+    cursor:pointer;
+}

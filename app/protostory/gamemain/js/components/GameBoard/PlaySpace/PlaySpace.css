@@ -1,0 +1,16 @@
+div.the-story-play-space{
+    display:block;
+    width: 50%;
+    height: 40%;
+    border:1px solid;
+}
+div.the-story-user-play-space{
+    position: absolute;
+    top:10%;
+    right:5%;
+}
+div.the-story-opponent-play-space{
+    position: absolute;
+    bottom:10%;
+    right:5%;
+}
