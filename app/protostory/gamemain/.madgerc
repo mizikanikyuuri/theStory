@@ -1,0 +1,4 @@
+{
+	"tsConfig": "/usr/src/app/protostory/gamemain/tsconfig.json",
+    "webpackConfig": "/usr/src/app/protostory/gamemain/webpack.config.js"
+}

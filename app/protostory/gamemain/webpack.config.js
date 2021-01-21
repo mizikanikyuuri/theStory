@@ -1,7 +1,9 @@
 const path = require('path');
-
 module.exports = {
-  entry: './js/index.js',
+  entry : {
+    standardPlay: './js/standardPlay.js',
+    singlePlay: './js/singlePlay.js',
+  },
   mode: "development",
   module: {
     rules: [
@@ -11,28 +13,38 @@ module.exports = {
         loader: "babel-loader",
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        test: /\.(ts|tsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: "ts-loader",
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: ["style-loader", "css-loader",'sass-loader']
+      },
+      {
+        test: /\.(ya?ml)$/,
+        loader: "js-yaml-loader"
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
-          publicPath: `/static/portal/img/`,
-          outputPath: `/img/`,
+          publicPath: `/static/gamemain/img/`,
+          outputPath: `img/`,
         },
       },
     ]
   },
   resolve: {
     alias: {
-      Utilities: path.resolve(__dirname, 'js/utilities/') ,
-      Components: path.resolve(__dirname, 'js/components/') ,
+      Utilities: path.resolve(__dirname, 'js/Utilities/'),
+      Components: path.resolve(__dirname, 'js/components/'),
+      GameRules: path.resolve(__dirname, 'js/GameRules/'),
     },
-    extensions: ["*", ".js", ".jsx"]
+    extensions: ["*", ".js", ".jsx",".ts",".tsx"]
   },
   output: {
-    filename: 'client.min.js',
     path: path.resolve(__dirname, 'static/gamemain'),
-  },
+    filename: '[name].js'
+  }
 };

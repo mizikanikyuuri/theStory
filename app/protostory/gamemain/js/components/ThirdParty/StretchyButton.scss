@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:900');
+
+$bg: #3c3c3c;
+$white: #fff;
+$black: #202121;
+
+@mixin transition($property: all, $duration: 0.5s, $ease: cubic-bezier(0.65,-0.25,0.25, 1.95)) {
+  transition: $property $duration $ease;
+}
+
+button.stretchy-button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+  @include transition(all, 0.5s, cubic-bezier(0.65,-0.25,0.25,1.95));
+  font-weight: 900;
+  color: $white;
+  padding: 1.25rem 2rem;
+  background: $bg;
+  text-transform: uppercase;
+  &:hover, &:focus, &:active {
+    letter-spacing: 0.125rem;
+  }
+}
+

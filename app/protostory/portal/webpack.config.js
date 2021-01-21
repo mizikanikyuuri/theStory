@@ -19,7 +19,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           publicPath: `/static/portal/img/`,
-          outputPath: `/img/`,
+          outputPath: `img/`,
         },
       },
     ]

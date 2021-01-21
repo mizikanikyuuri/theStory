@@ -1,10 +1,13 @@
 import { GameParameter } from "./GameParameter"
-import { HitPointParameterFookTypes } from "./ParameterFooks"
-class HitPoint extends GameParameter<HitPoint, HitPointParameterFookTypes>{
-    readonly paramName="hitPoint";
+enum HitPointParameterFookTypes {
+    "valueChanged",
+    "isZero"
+  }
+class HitPoint extends GameParameter<HitPointParameterFookTypes>{
+    static readonly paramName="hitPoint";
     #currentHitPoint:number;
     #maxHitPoint:number;
-    constructor(defaultHitPoint:number,defaultMaxHitPoint:number=null,){
+    constructor(defaultHitPoint:number,defaultMaxHitPoint:number=null){
         super();
         if(defaultMaxHitPoint===null)
             this.setMax(defaultHitPoint);
@@ -35,18 +38,13 @@ class HitPoint extends GameParameter<HitPoint, HitPointParameterFookTypes>{
             return;
         }
         this.#currentHitPoint=value;
-        this.notifyObserver(HitPointParameterFookTypes.valueChanged);
         if(this.#currentHitPoint===0)
-            this.notifyObserver(HitPointParameterFookTypes.isZero);
+            this.notifyObserver([HitPointParameterFookTypes.isZero,HitPointParameterFookTypes.valueChanged]);
+        else
+            this.notifyObserver([HitPointParameterFookTypes.valueChanged]);
     }
     toString(): string {
         return this.#currentHitPoint+"/"+this.#maxHitPoint;
-    }
-    activateParameter() {
-        throw new Error("Method not implemented.");
-    }
-    deactivateParameter() {
-        throw new Error("Method not implemented.");
     }
     change(amount:number){
         if(this.#currentHitPoint+amount<0)
@@ -56,4 +54,4 @@ class HitPoint extends GameParameter<HitPoint, HitPointParameterFookTypes>{
     }
 
 }
-export{HitPoint}
+export{HitPoint,HitPointParameterFookTypes}

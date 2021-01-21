@@ -1,0 +1,29 @@
+.win-modal{
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%) ;
+    top:50%;
+    left:50%;
+    background: no-repeat url("winningPopUpImage.jpg");
+    background-size:contain;
+    background-position: center;
+    background-color:rgb(81, 79, 228);
+    width: 75vw;
+    height: 75vh;
+}
+.win-modal p.win-modal-text{
+    position: absolute;
+    background-color:rgba(0,0,0,0.5);
+    color: gold;
+    transform: translateX(-50%) translateY(-50%) ;
+    top:50%;
+    left:50%;
+    font-size: 15rem;
+}
+.win-modal button.win-modal-sub-text{
+    position: absolute;
+    color:gray;
+    transform: translateX(-50%) translateY(-50%) ;
+    top:80%;
+    left:50%;
+    font-size: 6rem;
+}

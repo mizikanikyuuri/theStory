@@ -1,7 +1,9 @@
 import { GameParameter } from "./GameParameter"
-import { DefensePowerParameterFookTypes } from "./ParameterFooks"
-class DefensePower extends GameParameter<DefensePower, DefensePowerParameterFookTypes>{
-    readonly paramName="defensePower";
+enum DefensePowerParameterFookTypes {
+    "valueChanged",
+  }
+class DefensePower extends GameParameter<DefensePowerParameterFookTypes>{
+    static readonly paramName="defensePower";
     #defensePower:number;
     constructor(defaultDefensePower:number){
         super();
@@ -16,16 +18,10 @@ class DefensePower extends GameParameter<DefensePower, DefensePowerParameterFook
         if(this.#defensePower===value)
             return;
         this.#defensePower=value;
-        this.notifyObserver(DefensePowerParameterFookTypes.valueChanged);
+        this.notifyObserver([DefensePowerParameterFookTypes.valueChanged]);
     }
     toString(): string {
         return this.#defensePower.toString();
-    }
-    activateParameter() {
-        throw new Error("Method not implemented.");
-    }
-    deactivateParameter() {
-        throw new Error("Method not implemented.");
     }
     change(amount:number){
         if(this.#defensePower+amount<0)
@@ -34,4 +30,4 @@ class DefensePower extends GameParameter<DefensePower, DefensePowerParameterFook
     }
 
 }
-export{DefensePower}
+export{DefensePower,DefensePowerParameterFookTypes}

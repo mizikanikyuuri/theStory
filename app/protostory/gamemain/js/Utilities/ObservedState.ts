@@ -1,27 +1,50 @@
-interface ObservedState<TargetType, FookTypes> {
-    addObserver(fook: FookTypes, callBackFunc: (target: TargetType) => void): void;
-    deleteObserver(fook: FookTypes, callBackFunc: (target: TargetType) => void): void;
-    notifyObserver(fook: FookTypes):void;
+interface ObservableInterface{
+    addObserver( callBackFunc: (target: this) => void): void;
+    deleteObserver(callBackFunc: (target: this) => void): void;
+    notifyObserver():void;
 }
-class ObservedStateTrait<TargetType, FookTypes> implements ObservedState<TargetType, FookTypes>{
-    #callBackFunctions: Array<[FookTypes, (target: TargetType) => void]>
-    readonly target
-    constructor(target: TargetType) {
-        this.target = target;
-        this.#callBackFunctions = [];
+interface MultiFookObservableInterface< FookTypes> extends ObservableInterface{
+    addObserver(callBackFunc: (target: this,fook?: FookTypes) => void): void;
+    deleteObserver(callBackFunc: (target: this) => void,fook?: FookTypes): void;
+    notifyObserver(fookArray?: Array<FookTypes>):void;
+}
+class Observable implements ObservableInterface{
+    #callBackFunctions: Array<(target: this) => void>
+    constructor(){
+        this.#callBackFunctions=[];
     }
-    addObserver(fook: FookTypes, callBackFunc: (target: TargetType) => void): void {
-        this.#callBackFunctions.push([fook, callBackFunc]);
+    addObserver(callBackFunc: (target: this) => void): void {
+        this.#callBackFunctions.push(callBackFunc);
     }
-    deleteObserver(fook: FookTypes, callBackFunc: (target: TargetType) => void): void {
-        const functionId = this.#callBackFunctions.indexOf([fook, callBackFunc]);
+    deleteObserver(callBackFunc: (target: this) => void): void {
+        const functionId = this.#callBackFunctions.indexOf(callBackFunc);
         if (functionId === -1)
-            throw SyntaxError("ObservedStateTrait.deleteObserver could not found element " + callBackFunc);
+            throw Error("ObservedStateTrait.deleteObserver could not found element " + callBackFunc);
         this.#callBackFunctions.splice(functionId, 1);
     }
-    notifyObserver(fook: FookTypes):void {
-        this.#callBackFunctions.filter(callBackFunc => callBackFunc[0] === fook)
-            .forEach(callBackFunc => callBackFunc[1](this.target));
+    notifyObserver(): void {
+        this.#callBackFunctions.forEach(callBackFunc => callBackFunc(this));
+    }
+
+}
+class MultiFookObservable<FookTypes> extends Observable implements MultiFookObservableInterface<FookTypes>{
+    #callBackFunctions: Array<[FookTypes, (target: this) => void]>
+    constructor() {
+        super();
+        this.#callBackFunctions=[];
+    }
+    addObserver( callBackFunc: (target: this) => void,fook: FookTypes=null): void {
+        this.#callBackFunctions.push([fook, callBackFunc]);
+    }
+    deleteObserver( callBackFunc: (target: this) => void,fook: FookTypes=null): void {
+        const functionId = this.#callBackFunctions.indexOf([fook, callBackFunc]);
+        if (functionId === -1)
+            throw Error("ObservedStateTrait.deleteObserver could not found element " + callBackFunc);
+        this.#callBackFunctions.splice(functionId, 1);
+    }
+    notifyObserver(fookArray: Array<FookTypes>=null):void {
+        this.#callBackFunctions.filter(callBackFuncArray => fookArray.includes(callBackFuncArray[0])||callBackFuncArray[0] === null)
+            .forEach(callBackFuncArray => callBackFuncArray[1](this));
     }
 }
-export{ObservedState, ObservedStateTrait}
+export{ObservableInterface, MultiFookObservableInterface,Observable,MultiFookObservable}

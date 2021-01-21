@@ -30,7 +30,7 @@ class GameMatch(models.Model):
     match_status = models.CharField(max_length=10,choices=MATCH_STATUS_CHOICES)
     
     def __str__(self):
-        return self.match_id
+        return str(self.match_id)
     
     class Meta:
         ordering = ['match_id']

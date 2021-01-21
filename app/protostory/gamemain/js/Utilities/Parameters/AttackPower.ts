@@ -1,7 +1,9 @@
 import { GameParameter } from "./GameParameter"
-import { AttackPowerParameterFookTypes } from "./ParameterFooks"
-class AttackPower extends GameParameter<AttackPower, AttackPowerParameterFookTypes>{
-    readonly paramName="attackPower";
+enum AttackPowerParameterFookTypes {
+    "valueChanged",
+  }
+class AttackPower extends GameParameter< AttackPowerParameterFookTypes>{
+    static readonly paramName="attackPower";
     #attackPower:number;
     constructor(defaultAttackPower:number){
         super();
@@ -16,16 +18,10 @@ class AttackPower extends GameParameter<AttackPower, AttackPowerParameterFookTyp
         if(this.#attackPower===value)
             return;
         this.#attackPower=value;
-        this.notifyObserver(AttackPowerParameterFookTypes.valueChanged);
+        this.notifyObserver([AttackPowerParameterFookTypes.valueChanged]);
     }
     toString(): string {
         return this.#attackPower.toString();
-    }
-    activateParameter() {
-        throw new Error("Method not implemented.");
-    }
-    deactivateParameter() {
-        throw new Error("Method not implemented.");
     }
     change(amount:number){
         if(this.#attackPower+amount<0)
@@ -34,4 +30,4 @@ class AttackPower extends GameParameter<AttackPower, AttackPowerParameterFookTyp
     }
 
 }
-export{AttackPower}
+export{AttackPower,AttackPowerParameterFookTypes}

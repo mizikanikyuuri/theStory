@@ -1,33 +1,26 @@
 import { GameParameter } from "./GameParameter"
-import { SaintCaluseParameterFookTypes } from "./ParameterFooks"
-class SaintClause extends GameParameter<SaintClause, SaintCaluseParameterFookTypes>{
-    readonly paramName="saintClause";
+enum SaintCaluseParameterFookTypes {
+    "valueChanged",
+  }
+class SaintClause extends GameParameter<SaintCaluseParameterFookTypes>{
+    static readonly paramName="saintClause";
     #saintClause:"valid"|"invalid";
-    constructor(defaultSaintClause:"valid"|"invalid"){
+    constructor(){
         super();
-        this.set(defaultSaintClause);
+        this.deactivate();
     }
     get current():"valid"|"invalid"{
         return this.#saintClause;
     }
-    set(value:"valid"|"invalid"){
-        this.#saintClause=value;
-    }
     toString(): string {
         return this.#saintClause.toString();
     }
-    activateParameter() {
-        throw new Error("Method not implemented.");
-    }
-    deactivateParameter() {
-        throw new Error("Method not implemented.");
-    }
-    activate(amount:number){
-        this.set("valid")
+    activate(){
+        this.#saintClause="valid";
     }
     deactivate(){
-        this.set("invalid");
+        this.#saintClause="invalid";
     }
 
 }
-export{SaintClause}
+export{SaintClause,SaintCaluseParameterFookTypes}

@@ -1,28 +1,10 @@
 
-import {ObservedState,ObservedStateTrait} from "../ObservedState"
-class GameParameter<TargetType, FookTypes> implements ObservedState<GameParameter<TargetType, FookTypes>, FookTypes> {
-    readonly paramName: string;
-    #observedStateTrait:ObservedStateTrait<GameParameter<TargetType, FookTypes>,FookTypes>
+import {MultiFookObservable} from "../ObservedState"
+abstract class GameParameter<FookTypes> extends MultiFookObservable<FookTypes> {
+    static readonly paramName: string;
     constructor() {
-        this.#observedStateTrait=new ObservedStateTrait(this);
+        super();
     }
-    addObserver(fook: FookTypes, callBackFunc: (target: GameParameter<TargetType, FookTypes>) => void): void {
-        this.#observedStateTrait.addObserver(fook,callBackFunc);
-    }
-    deleteObserver(fook: FookTypes, callBackFunc: (target: GameParameter<TargetType, FookTypes>) => void): void {
-        this.#observedStateTrait.deleteObserver(fook,callBackFunc);
-    }
-    notifyObserver(fook: FookTypes): void {
-        this.#observedStateTrait.notifyObserver(fook);
-    }
-    toString():string{
-        throw new Error("Method not implemented.");
-    }
-    activateParameter(){
-        throw new Error("Method not implemented.");
-    }
-    deactivateParameter(){
-        throw new Error("Method not implemented.");
-    }
+    abstract toString():string;
 }
 export {GameParameter}

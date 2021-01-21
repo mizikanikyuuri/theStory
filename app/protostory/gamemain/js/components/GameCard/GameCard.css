@@ -1,0 +1,10 @@
+div.the-story-game-card{
+    width: 18rem;
+    /* transition-property:all;
+    transition-delay: 0.5s; */
+}
+div.the-story-game-card-wide-border{
+    box-sizing: content-box;
+    border-radius: 0.3rem;
+    border-width: 1rem;
+}

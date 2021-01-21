@@ -13,6 +13,7 @@ export default class Home extends React.Component {
     this.#matchingSocket.onopen = (e) => {
     };
     this.#matchingSocket.onmessage = (e) => {
+      alert(e);
       window.location.href = "http://localhost:8080/gamemain/";
     };
     this.#matchingSocket.onclose = function (e) {
@@ -30,7 +31,8 @@ export default class Home extends React.Component {
   #userRegisterHandleClose = (userName = null) => { this.setState({ show_register_form: false, userName: userName }); };
   #popupUserLogoutForm = () => {
     if (window.confirm("Do you really want to Logout?")) {
-      this.#matchingSocket.close();
+      if(this.#matchingSocket!==null)
+        this.#matchingSocket.close();
       fetch("http://localhost:8080/portal/logout", {
         method: 'POST',
         credentials: 'same-origin',

@@ -12,3 +12,26 @@ div.the-story-opponent-status-bar{
     top:0px;
     left:0px;
 }
+span.status-bar-hilighted-item{
+    animation-name: highlight;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+@keyframes highlight {
+    0% {
+        background-color: inherit;
+    }
+  
+    50% {
+        background-color: red;
+    }
+  
+    100% {
+        background-color: inherit;
+    }
+  }

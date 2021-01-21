@@ -2,7 +2,9 @@ div.the-story-sub-card-space{
     box-shadow:
     0 2px 2px 0 rgb(224, 224, 224),
     0 4px 4px 0 rgb(194, 194, 194),
-    0 6px 6px 0 rgb(163, 163, 163)
+    0 6px 6px 0 rgb(163, 163, 163);
+    
+    display:flex;
 }
 div.the-story-user-sub-card-space{
     position: absolute;

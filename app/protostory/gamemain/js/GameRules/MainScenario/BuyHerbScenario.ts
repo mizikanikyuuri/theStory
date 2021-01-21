@@ -1,0 +1,49 @@
+import { GoldAmount } from "Utilities/Parameters/GoldAmount";
+import { Player } from "../CommonGameObjects";
+import { GameState } from "../GameState/GameState";
+import {MainAbstractScenario} from "../Scenario"
+import {ScenarioCommonFunctions} from "../ScenarioUtilities"
+import HarbScenario from "../SubScenario/HarbScenario"
+class BuyHerbScenario extends MainAbstractScenario{
+    readonly scenarioName: string;
+    constructor(){
+        super();
+        this.scenarioName="buyHerb";
+    }
+    protected _setToDeck(gameState: GameState): void {
+        return;
+    }
+    
+    protected _placeCard(gameState: GameState,player:Player.user|Player.opponent): void {
+        this._placeCardWithState(gameState,player);
+    }
+    protected _placeCardWithState(gameState: GameState,player:Player.user|Player.opponent,props:{}={}): void{
+        gameState.playSpaceState.addCard(player, this.scenarioName);
+    }
+    protected _prePlay(gameState: GameState): void {
+        if(ScenarioCommonFunctions.checkPrePlayedScenario(this.scenarioName,gameState)){
+            gameState.playSpaceState.prePlayingCard.validity="invalid";
+        }
+    }
+    protected _payCost(gameState: GameState): boolean {
+        if(gameState.playerOracle===null)
+            throw SyntaxError("ArbeitScenario payCost was called while player is null");
+        if(gameState.playerOracle.getParam(GoldAmount).current<2)
+            return false;
+
+        gameState.playerOracle.getParam(GoldAmount).change(-2);
+        return true;
+    }
+    protected _doEffect(gameState: GameState): void {
+        console.log("adding herb");
+        const player=gameState.playSpaceState.player;
+        if(player===Player.null)
+            throw SyntaxError("ArbeitScenario doEffect was called while player is null");
+        gameState.subScenarioSpaceState.addSubScenario(player,"harb",gameState);
+        HarbScenario.increaseHarb(gameState,1,player);
+    }
+    protected _cleanUp(gameState:GameState):void{
+        ScenarioCommonFunctions.commonCleanUp(gameState);
+    }
+}
+export default new BuyHerbScenario();
