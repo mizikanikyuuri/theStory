@@ -9,9 +9,9 @@ APP_ADMIN_USER=$2
  cd $WORK_DIR
 
  mv -f $SETTING_FILE_DIR/seLinuxConfig /etc/selinux/config
-
+ dnf update -y
  dnf -y install dnf-utils nginx python36 python36-devel
- dnf -y install groupinstall "Development Tools"
+ dnf -y group install "Development Tools"
  rm -rf /var/lib/apt/lists/*
 
  #Install pip and python modules
@@ -78,7 +78,6 @@ APP_ADMIN_USER=$2
  #set nodejs
  dnf -y install nodejs
  cd $WORK_DIR/$PROJECT_NAME/
- npm init
  python3 $WORK_DIR/$PROJECT_NAME/manage.py collectstatic
 
  
@@ -87,4 +86,5 @@ APP_ADMIN_USER=$2
  cp $SETTING_FILE_DIR/supervisord.conf /etc/supervisor/supervisord.conf
  mkdir /var/log/supervisor/
  touch /tmp/supervisor.sock
+ cd ~
  /usr/local/bin/supervisord 
