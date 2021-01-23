@@ -3,3 +3,4 @@
 /app/get-pip.py
 .vagrant/
 .vscode/
+/awsSettingFiles/
