@@ -8,11 +8,26 @@ APP_ADMIN_USER=$2
  chgrp $APP_ADMIN_USER $WORK_DIR 
  cd $WORK_DIR
 
- mv -f $SETTING_FILE_DIR/seLinuxConfig /etc/selinux/config
+#install from packages
  dnf update -y
  dnf -y install dnf-utils nginx python36 python36-devel
  dnf -y group install "Development Tools"
+ dnf -y module disable postgresql:10
+ dnf -y module enable postgresql:12
+ dnf -y install postgresql-server postgresql-devel
+ dnf -y install wget-1.19.5-10.el8.x86_64 
+ dnf localinstall -y google-chrome-stable_current_x86_64.rpm
+ dnf -y install nodejs
+
  rm -rf /var/lib/apt/lists/*
+
+#create required directories
+ mkdir /etc/uwsgi/
+ mkdir /etc/redis/ /var/log/ /var/redis/
+ mkdir /etc/supervisor /var/log/supervisor/
+ 
+#place settingFiles
+ sh updateSetting.sh $SETTING_FILE_DIR $WORK_DIR
 
  #Install pip and python modules
  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -26,19 +41,15 @@ APP_ADMIN_USER=$2
  #restorecon -R "/usr/src/app"
  setenforce 0
 
+ #Setting uwsgi
+ cp $SETTING_FILE_DIR/uwsgi.ini /etc/uwsgi/uwsgi.ini
+
  #Seting nginx
  cp $SETTING_FILE_DIR/nginx.moduole /etc/dnf/modules.d/nginx.module
  cp $SETTING_FILE_DIR/nginx.conf /etc/nginx/nginx.conf
  nginx -s reload
 
- #Setting uwsgi
- mkdir /etc/uwsgi/
- cp $SETTING_FILE_DIR/uwsgi.ini /etc/uwsgi/uwsgi.ini
-
  #Install & setting of postgresserver
- dnf -y module disable postgresql:10
- dnf -y module enable postgresql:12
- dnf -y install postgresql-server postgresql-devel
  /usr/bin/postgresql-setup --initdb
  systemctl start postgresql
  sudo -u postgres psql < $SETTING_FILE_DIR/psqlSetting.sql
@@ -46,9 +57,7 @@ APP_ADMIN_USER=$2
  systemctl stop postgresql
 
  #setup redis
- dnf install -y wget-1.19.5-10.el8.x86_64 
  wget http://download.redis.io/releases/redis-6.0.7.tar.gz
- mkdir /etc/redis/ /var/log/ /var/redis/
  cd /etc/redis/
  tar xzf $WORK_DIR/redis-6.0.7.tar.gz
  cd redis-6.0.7
@@ -68,7 +77,6 @@ APP_ADMIN_USER=$2
 
  #Setting django test environment
  wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm #install for selenium test tools
- dnf localinstall -y google-chrome-stable_current_x86_64.rpm
  rm -f google-chrome-stable_current_x86_64.rpm
  wget https://chromedriver.storage.googleapis.com/86.0.4240.22/chromedriver_linux64.zip
  unzip chromedriver_linux64.zip
@@ -76,15 +84,12 @@ APP_ADMIN_USER=$2
  mv chromedriver /usr/local/bin
 
  #set nodejs
- dnf -y install nodejs
  cd $WORK_DIR/$PROJECT_NAME/
  python3 $WORK_DIR/$PROJECT_NAME/manage.py collectstatic
 
  
  #setting supervisord
- mkdir /etc/supervisor
  cp $SETTING_FILE_DIR/supervisord.conf /etc/supervisor/supervisord.conf
- mkdir /var/log/supervisor/
  touch /tmp/supervisor.sock
  cd ~
  /usr/local/bin/supervisord 
