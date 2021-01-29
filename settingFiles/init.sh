@@ -27,7 +27,7 @@ APP_ADMIN_USER=$2
  mkdir /etc/supervisor /var/log/supervisor/
  
 #place settingFiles
- sh updateSetting.sh $SETTING_FILE_DIR $WORK_DIR
+ sh updateSetting.sh $SETTING_FILE_DIR $WORK_DIR $APP_ADMIN_USER
 
  #Install pip and python modules
  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -45,8 +45,6 @@ APP_ADMIN_USER=$2
  cp $SETTING_FILE_DIR/uwsgi.ini /etc/uwsgi/uwsgi.ini
 
  #Seting nginx
- cp $SETTING_FILE_DIR/nginx.moduole /etc/dnf/modules.d/nginx.module
- cp $SETTING_FILE_DIR/nginx.conf /etc/nginx/nginx.conf
  nginx -s reload
 
  #Install & setting of postgresserver

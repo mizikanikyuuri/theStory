@@ -4,7 +4,7 @@ node {
         git 'https://github.com/mizikanikyuuri/theStory.git'
     }
     stage('Build') {
-        sh "sh ./deploy.sh ./settingFiles"
+        sh "sh ./deploy.sh ./settingFiles proto_story_admin"
     }
     stage('Results') {
         sh "echo 'deploye done'"
