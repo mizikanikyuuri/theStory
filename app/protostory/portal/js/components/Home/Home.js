@@ -8,13 +8,13 @@ export default class Home extends React.Component {
   #matchingSocket;
   #startMatching = () => {
     this.setState({ matching: true });
-    this.#matchingSocket = new WebSocket('ws://'+location.hostname+':8080/ws/portal/matching/');
+    this.#matchingSocket = new WebSocket('ws://'+location.host+'/ws/portal/matching/');
     
     this.#matchingSocket.onopen = (e) => {
     };
     this.#matchingSocket.onmessage = (e) => {
       alert(e);
-      window.location.href = "http://"+location.hostname+":8080/gamemain/";
+      window.location.href = "http://"+location.host+"/gamemain/";
     };
     this.#matchingSocket.onclose = function (e) {
       console.error('Game match making failed. Socket closed unexpectedly');

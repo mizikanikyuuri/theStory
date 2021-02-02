@@ -10,7 +10,7 @@ APP_ADMIN_USER=$2
 
 #install from packages
  dnf update -y
- dnf -y install dnf-utils nginx python36 python36-devel
+ dnf -y install dnf-utils nginx python36 python36-devel pcre pcre-devel
  dnf -y group install "Development Tools"
  dnf -y module disable postgresql:10
  dnf -y module enable postgresql:12
