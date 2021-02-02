@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3o9qrbv^hf)b_(ry&z$-%7t%1iulzl6kqzv*8g3_1^f6_u*wzf'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(" ")
 
 
 # Application definition
@@ -92,10 +92,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'protostory',
-        'USER': 'django_user',
-        'PASSWORD': 'django_user',
-        #'USER': os.environ['DJANGO_PSQL_USER']
-        #'PASSWORD':os.environ['DJANGO_PSQL_PASSWORD']
+        'USER': os.environ['DJANGO_PSQL_USER'],
+        'PASSWORD':os.environ['DJANGO_PSQL_PASSWORD'],
         'HOST': 'localhost',
         'PORT': '',
     }

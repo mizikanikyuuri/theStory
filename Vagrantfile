@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   config.vm.provision "shell",inline: "dnf -y install nfs-utils nfs4-acl-tools"
-  #config.vm.synced_folder "./app", "/usr/src/app\/",type: "nfs"
+  config.vm.synced_folder "./app", "/usr/src/app\/",type: "nfs"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

@@ -52,6 +52,16 @@ APP_ADMIN_USER=$2
  systemctl start postgresql
  sudo -u postgres psql < $SETTING_FILE_DIR/psqlSetting.sql
  cp $SETTING_FILE_DIR/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf
+
+    #django settings
+    # /usr/local/bin/django-admin startproject $PROJECT_NAME
+    # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp portal
+    # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp gamemain
+    python3 $WORK_DIR/$PROJECT_NAME/manage.py makemigrations
+    python3 $WORK_DIR/$PROJECT_NAME/manage.py migrate
+    #非対話方式でadminuserが作れるのか要確認
+    #python3 $WORK_DIR/$PROJECT_NAME/manage.py createsuperuser
+
  systemctl stop postgresql
 
  #setup redis
@@ -64,14 +74,7 @@ APP_ADMIN_USER=$2
  cp $SETTING_FILE_DIR/redis.conf /etc/redis/redis-6.0.7/redis.conf 
  rm -f redis-6.0.7.tar.gz
 
- #django settings
- # /usr/local/bin/django-admin startproject $PROJECT_NAME
- # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp portal
- # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp gamemain
- python3 $WORK_DIR/$PROJECT_NAME/manage.py makemigrations
- python3 $WORK_DIR/$PROJECT_NAME/manage.py migrate
- #非対話方式でadminuserが作れるのか要確認
- #python3 $WORK_DIR/$PROJECT_NAME/manage.py createsuperuser
+
 
  #Setting django test environment
  wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm #install for selenium test tools

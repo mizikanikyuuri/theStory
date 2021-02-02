@@ -21,7 +21,7 @@ export default class UserRegister extends React.Component {
         var formData = new FormData();
         formData.append("username", this.state.form_Username);
         formData.append("password", this.state.form_Password);
-        fetch("http://localhost:8080/portal/login", {
+        fetch("/portal/login", {
             method: 'POST',
             credentials: 'same-origin',
             headers: {

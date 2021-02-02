@@ -50,8 +50,6 @@ class StandardPlayConsumer(WebsocketConsumer):
         return str(self.findOwnMatch(userName).match_id)
     
     def findOwnMatch(self,userName:str)->GameMatch:
-        logging.warning("findOwnMatch. user name is "+userName)
-        logging.warning("findOwnMatch. userName type is "+str(type(userName)))
         gameMatch=GameMatch.objects.filter(player_one=userName,match_status='MATCHED')
         if not gameMatch.exists():
             gameMatch=GameMatch.objects.filter(player_two=userName,match_status='MATCHED')

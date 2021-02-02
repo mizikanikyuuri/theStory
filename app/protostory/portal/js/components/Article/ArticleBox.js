@@ -16,8 +16,9 @@ export default class ArticleBox extends React.Component {
 
     }
     componentDidMount() {
-        fetch("http://localhost:8080/portal/article",{
+        fetch("/portal/article",{
             method: 'GET', 
+            credentials: 'same-origin',
             headers: {
               'Content-Type': 'application/json',
             },
