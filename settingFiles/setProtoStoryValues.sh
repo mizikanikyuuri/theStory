@@ -1,3 +1,4 @@
+#if you updated this file. reflect it manualy. do not use jenkins.
 export DJANGO_ALLOWED_HOSTS='*'
 export DJANGO_PSQL_USER='django_user'
 export DJANGO_PSQL_PASSWORD='django_user'
