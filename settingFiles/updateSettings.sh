@@ -8,7 +8,7 @@ APP_ADMIN_USER=$4
  #because overriding setting on sql will be error. settingSql should not be in here. 
  cp -f $SETTING_FILE_DIR/seLinuxConfig /etc/selinux/config
  python3 -m pip install -r $SETTING_FILE_DIR/requirements.txt
- cp $SETTING_FILE_DIR/nginx.moduole /etc/dnf/modules.d/nginx.module
+ cp $SETTING_FILE_DIR/nginx.module /etc/dnf/modules.d/nginx.module
  rm -f /etc/nginx/nginx.conf
  sed "s/user nginx/user $APP_ADMIN_USER/"  $SETTING_FILE_DIR/nginx.conf > /etc/nginx/nginx.conf
  cp $SETTING_FILE_DIR/uwsgi.ini /etc/uwsgi/uwsgi.ini
