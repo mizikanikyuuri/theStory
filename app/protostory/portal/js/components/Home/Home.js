@@ -13,8 +13,8 @@ export default class Home extends React.Component {
     this.#matchingSocket.onopen = (e) => {
     };
     this.#matchingSocket.onmessage = (e) => {
-      alert(e);
-      window.location.href = "http://"+location.host+"/gamemain/";
+      alert("match found. click to enter match.");
+      window.location.href = "https://"+location.host+"/gamemain/";
     };
     this.#matchingSocket.onclose = function (e) {
       console.error('Game match making failed. Socket closed unexpectedly');
@@ -33,7 +33,7 @@ export default class Home extends React.Component {
     if (window.confirm("Do you really want to Logout?")) {
       if(this.#matchingSocket!==null)
         this.#matchingSocket.close();
-      fetch("http://"+location.hostname+":8080/portal/logout", {
+      fetch("https://"+location.hostname+":8080/portal/logout", {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
