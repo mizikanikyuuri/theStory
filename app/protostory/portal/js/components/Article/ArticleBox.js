@@ -5,9 +5,6 @@ import Article from "./Article";
 export default class ArticleBox extends React.Component {
     constructor(props) {
         super(props);
-        //   const Post=()=>{
-        //     //write ajax getting post records
-        //   };
         this.state = {
             error: null,
             isLoaded: false,

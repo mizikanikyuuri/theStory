@@ -1,17 +1,20 @@
 from django.urls import include,path
-from rest_framework import routers
 from portal.views import home,userLogin,userLogout
+from rest_framework import routers
 from portal.api_views import ArticleViewSet
 
-app_name = 'portal'
+
 router = routers.DefaultRouter()
 router.register(r'article', ArticleViewSet)
 
+app_name = 'portal'
+
 urlpatterns = [
     path('',home,name='index'),
+    path('article-box',home,name='index'),
+    path('contact',home,name='index'),
     path('login',userLogin,name='login'),
     path('logout',userLogout,name='logout'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 ]

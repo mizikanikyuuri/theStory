@@ -2,11 +2,14 @@ PROJECT_NAME=protostory
 WORK_DIR=/usr/src/app
 SETTING_FILE_DIR=$1
 APP_ADMIN_USER=$2
+#get environment valiables
+. /etc/profile.d/setProtoStoryValues.sh
 
  mkdir $WORK_DIR
  chown $APP_ADMIN_USER $WORK_DIR 
  chgrp $APP_ADMIN_USER $WORK_DIR 
  cd $WORK_DIR
+
 
 #install from packages
  dnf update -y
@@ -27,7 +30,7 @@ APP_ADMIN_USER=$2
  mkdir /etc/supervisor /var/log/supervisor/
  
 #place settingFiles
- sh updateSetting.sh $SETTING_FILE_DIR $WORK_DIR $APP_ADMIN_USER
+ sh $SETTING_FILE_DIR/updateSettings.sh $SETTING_FILE_DIR $WORK_DIR $PROJECT_NAME $APP_ADMIN_USER
 
  #Install pip and python modules
  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -84,13 +87,11 @@ APP_ADMIN_USER=$2
  rm -f chromedriver_linux64.zip
  mv chromedriver /usr/local/bin
 
- #set nodejs
+ #set static web content 
  cd $WORK_DIR/$PROJECT_NAME/
- python3 $WORK_DIR/$PROJECT_NAME/manage.py collectstatic
+ sudo -E  python3 $WORK_DIR/$PROJECT_NAME/manage.py collectstatic  --noinput
 
  
  #setting supervisord
- cp $SETTING_FILE_DIR/supervisord.conf /etc/supervisor/supervisord.conf
- touch /tmp/supervisor.sock
  cd ~
  /usr/local/bin/supervisord 
