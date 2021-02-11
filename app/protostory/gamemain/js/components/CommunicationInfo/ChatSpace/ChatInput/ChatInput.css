@@ -1,0 +1,18 @@
+div.chat-input{
+    clear:both;
+    width:100%;
+    border:none;
+}
+input.chat-input-console{
+    border:none;
+    border-top:gray;
+    border-bottom:gray;
+    width:100%;
+    padding-right:40px;
+}
+
+button.msg-send-btn{
+    position:absolute;
+    right:0;
+    margin-left:4px;
+}

@@ -103,7 +103,7 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "file", source: "./settingFiles/setProtoStoryValues.sh", destination: "/etc/profile.d/setProtoStoryValues.sh"
   config.vm.provision "file", source: "./settingFiles", destination: "/home/vagrant/settingFiles"
+  config.vm.provision "shell", path: "./settingFiles/vagrantInit.sh"
   config.vm.provision "shell", path: "./settingFiles/init.sh" ,args:["/home/vagrant/settingFiles","vagrant"]
 end

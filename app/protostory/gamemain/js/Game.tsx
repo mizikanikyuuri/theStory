@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from "react";
 import { GameBoard, GameBoardCardProp, GameBoardDeckProp, GameBoardProps } from "./components/GameBoard/GameBoard";
+import { CommunicationInfo } from "Components/CommunicationInfo/CommunicationInfo"
 import { DeckProps } from 'Components/GameBoard/DeckSpace/Deck/Deck';
 import { GameState, PlacedCardState, PlaySpaceState } from "./GameRules/GameState/GameState";
 import { AbstractScenario } from "./GameRules/Scenario";
@@ -14,6 +15,7 @@ import { DeckState } from 'GameRules/GameState/DeckSpaceState';
 import { SubScenarioSpaceState } from 'GameRules/GameState/SubScenarioSpaceState';
 import { ActionDeterminedResponse, GameMainConnectionResponseEvents, GameMainWebSocket, GameStartResponse } from 'Utilities/WebSocket/GameMainWebSocket';
 import { _sleep} from 'Utilities/Sleep';
+import './Game.css';
 
 export default class Game extends React.Component<{},DisplayingStatus>{
   gameState: GameState
@@ -40,6 +42,8 @@ export default class Game extends React.Component<{},DisplayingStatus>{
       goalDecks: getDeckComponentProp(this.gameState.goalCardDeckSpaceState.getAllDeckStates()),
       winner:this.gameState.winner,
       boardDisable:true,
+      userChat:[],
+      opponentChat:[],
     }
 
   }
@@ -57,6 +61,12 @@ export default class Game extends React.Component<{},DisplayingStatus>{
           winner:gameState.winner,
         }
     );
+  }
+  #sendChat=(message:string) =>{
+    let newChat=this.state.userChat.concat([message]);
+      this.setState({
+        userChat:newChat
+      });
   }
   #gameStart= async (data: GameStartResponse) =>{
     this.setState({
@@ -111,6 +121,7 @@ export default class Game extends React.Component<{},DisplayingStatus>{
   }
   render() {
     return (
+      <div>
       <GameBoard
         deckClickAction={this.#placeDeckCard}
         subCardSpaceClickAction={this.#placeSubSpaceCard}
@@ -131,6 +142,9 @@ export default class Game extends React.Component<{},DisplayingStatus>{
       >
         <PopUpContainer gameState={this.gameState}/>
       </GameBoard>
+      <CommunicationInfo className={"the-story-opponent-communication-space"} playerName={this.state.opponentName} chat={this.state.opponentChat} />
+      <CommunicationInfo className={"the-story-user-communication-space"} playerName={this.state.userName} addChatFunc={this.#sendChat} chat={this.state.userChat}/>
+      </div>
     );
   }
 }

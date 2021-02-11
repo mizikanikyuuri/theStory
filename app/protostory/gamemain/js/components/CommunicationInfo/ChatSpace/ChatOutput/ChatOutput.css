@@ -1,0 +1,10 @@
+div.chat-output:hover{
+    max-height: 20rem;
+}
+div.chat-output{
+    display:block;
+    max-width: 60rem;
+    font-size: 1rem;
+    overflow-y:scroll;
+    max-height: 3rem;
+}

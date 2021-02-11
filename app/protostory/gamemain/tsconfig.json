@@ -12,6 +12,10 @@
       "es2020"
     ],
     "baseUrl": "./",
+    "typeRoots": [
+      "node_modules/@types",
+      "./js/types"
+    ],
     "paths": {
       "Utilities/*": ["./js/Utilities/*"],
       "Components/*": ["./js/components/*"],

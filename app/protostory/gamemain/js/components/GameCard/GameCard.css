@@ -1,5 +1,6 @@
 div.the-story-game-card{
     width: 18rem;
+    cursor: pointer;
     /* transition-property:all;
     transition-delay: 0.5s; */
 }

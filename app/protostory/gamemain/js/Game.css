@@ -1,0 +1,11 @@
+div.the-story-opponent-communication-space{
+    position: absolute;
+    top:6%;
+    left:1%;
+}
+
+div.the-story-user-communication-space{
+    position: absolute;
+    bottom:6%;
+    left:1%;
+}

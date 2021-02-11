@@ -15,15 +15,3 @@ div.the-story-normal-card-deck-space{
     top:38%;
     left:5%;
 }
-div.the-story-opponent-badge{
-    position: absolute;
-    top:6%;
-    left:5%;
-}
-
-div.the-story-user-badge{
-    position: absolute;
-    transform: translateY(-100%) ;
-    bottom:6%;
-    left:5%;
-}

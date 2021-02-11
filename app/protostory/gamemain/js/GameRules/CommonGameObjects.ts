@@ -48,6 +48,8 @@ type DisplayingStatus={
     opponentSubScenarioList:Array<GameBoardCardProp>,
     winner:Player,
     boardDisable:boolean,
+    userChat:Array<string>,
+    opponentChat:Array<string>,
   }
 const InitialPlayerStatus={
   // hitPoint: 100,

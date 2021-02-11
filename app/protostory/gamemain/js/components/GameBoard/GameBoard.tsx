@@ -8,7 +8,6 @@ import { TurnEndButton } from "./TurnEndButton/TurnEndButton";
 import './GameBoard.css';
 import { GameCardProps } from "Components/GameCard/GameCard";
 import { DeckProps } from "./DeckSpace/Deck/Deck";
-import { PlayerBadge } from "./PlayerBadge/PlayerBadge";
 type GameBoardCardProp={
   cardName: string;
   highlight?: boolean;
@@ -66,8 +65,6 @@ function GameBoard(props:GameBoardProps) {
   const opponentPlaySpaceCardProps=GameBoadCardPropsToCardProps(props.opponentPlaySpaceCardList,props.playSpaceCardClickAction);
   return (
     <div className={"the-story-game-board"}>
-      <PlayerBadge className={"the-story-opponent-badge"} playerName={props.opponentName}/>
-      <PlayerBadge className={"the-story-user-badge"} playerName={props.userName}/>
       <UserStatusBar statusList={props.userStatus}/>
       <OpponentStatusBar statusList={props.opponentStatus}/>
       <OpponentSubCardSpace disable={props.disable} cardList={opponentSubCardProps} />

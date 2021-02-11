@@ -64,7 +64,7 @@ export default class Home extends React.Component {
     };
   }
   render() {
-    let start_sticker, user_sticker;
+    let start_sticker, user_sticker,user_register;
     if (this.state.matching === false) {
       start_sticker =
         <Sticker className="start-sticker" action={this.#startMatching}>
@@ -76,14 +76,14 @@ export default class Home extends React.Component {
           <h1>&emsp;IN QUEUE&emsp;</h1>
         </Sticker>;
     }
+    if (this.state.show_register_form){
+      user_register=<UserRegister className="user-register" handleClose={this.#userRegisterHandleClose}/>;
+    }
     if (this.state.userName == null) {
       user_sticker =
         <div>
-          {this.state.show_register_form ?
-            <UserRegister className="user-register" handleClose={this.#userRegisterHandleClose} />
-            : null}
           <Sticker className="user-sticker" action={this.#popupUserRegisterForm}>
-            <h1>&emsp;PLEAZE LOGIN&emsp;</h1>
+            <h1>&emsp;PLEASE LOGIN&emsp;</h1>
           </Sticker>
         </div>
     } else {
@@ -99,8 +99,8 @@ export default class Home extends React.Component {
           alt="main content back ground"
         />
         {user_sticker}
-
         {start_sticker}
+        {user_register}
       </div>
     );
   }
