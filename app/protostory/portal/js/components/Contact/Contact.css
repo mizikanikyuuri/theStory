@@ -1,5 +1,10 @@
 div.the-story-contact-space{
+    text-align: center;
+    background-color: white;
+    margin:auto;
+    width:1200;
 }
 table.the-story-contact-table{
     width:60%;
+    margin:auto;
 }

@@ -111,8 +111,8 @@ export default class Game extends React.Component<{},DisplayingStatus>{
       await _sleep(500);
       currentCardState = this.gameState.playSpaceState.playingCard;
       currentScenario = ScenarioContainer.getScenario(currentCardState.scenarioName);
-      currentScenario.payCost(this.gameState);
-      if (currentCardState.validity === "valid")
+      let CostPaid=currentScenario.payCost(this.gameState);
+      if (CostPaid===true&&currentCardState.validity === "valid")
         currentScenario.doEffect(this.gameState);
       this.gameState.playSpaceState.nextPlayCard();
     }

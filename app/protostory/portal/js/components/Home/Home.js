@@ -94,10 +94,6 @@ export default class Home extends React.Component {
     }
     return (
       <div className="portal-home">
-        <img className="home-content-background"
-          src="../static/portal/img/main_background16_9.jpg"
-          alt="main content back ground"
-        />
         {user_sticker}
         {start_sticker}
         {user_register}

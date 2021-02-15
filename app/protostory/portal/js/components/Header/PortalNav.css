@@ -1,15 +1,15 @@
 div.PortalNav{
- background-color: #F8F5CE;
+    width:100%;
 }
 
 div.PortalNav div.nav-item{
-    margin-left:2rem;
-    margin-right:2rem;
-    background-color: #dadada;
-   }
-img.LogoPicture{
+    background-color: #F8F5CE;
+    border: solid;
+    border-width: 0 1rem 0 1rem;
+}
+/* img.LogoPicture{
     position:absolute;
     top:4rem;
-    left:4rem;
-    z-index: -0.5;
-}
+    left:1%;
+    z-index: 1;
+} */

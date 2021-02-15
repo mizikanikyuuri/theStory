@@ -1,0 +1,17 @@
+div.the-story-about-space{
+    max-width: 830px;
+    background-color: lightgoldenrodyellow;
+}
+i.the-story-about-icon{
+    font-size: 4rem;
+    margin:2rem;
+}
+i.icon-left{
+    float: left;
+}
+i.icon-right{
+    float: right;
+}
+div.the-story-about-space dl dt{
+    clear:both;
+}

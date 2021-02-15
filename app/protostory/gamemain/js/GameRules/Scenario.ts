@@ -29,9 +29,9 @@ abstract class AbstractScenario extends MultiFookObservable<ScenarioFooks>{
         this.notifyObserver([ScenarioFooks.onPrePlay]);
         this._prePlay(gameState);
     }
-    payCost(gameState: GameState): void{   
+    payCost(gameState: GameState): boolean{   
         this.notifyObserver([ScenarioFooks.onPayCost]);
-        this._payCost(gameState);
+        return this._payCost(gameState);
     }
     doEffect(gameState: GameState): void{   
         this.notifyObserver([ScenarioFooks.onDoEffect]);

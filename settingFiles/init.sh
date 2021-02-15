@@ -28,9 +28,6 @@ APP_ADMIN_USER=$2
  mkdir /etc/uwsgi/
  mkdir /etc/redis/ /var/log/ /var/redis/
  mkdir /etc/supervisor /var/log/supervisor/
- 
-#place settingFiles
- sh $SETTING_FILE_DIR/updateSettings.sh $SETTING_FILE_DIR $WORK_DIR $PROJECT_NAME $APP_ADMIN_USER
 
  #Install pip and python modules
  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -54,18 +51,19 @@ APP_ADMIN_USER=$2
  /usr/bin/postgresql-setup --initdb
  systemctl start postgresql
  sudo -u postgres psql < $SETTING_FILE_DIR/psqlSetting.sql
- cp $SETTING_FILE_DIR/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf
+ 
+#place settingFiles
+ sh $SETTING_FILE_DIR/updateSettings.sh $SETTING_FILE_DIR $WORK_DIR $PROJECT_NAME $APP_ADMIN_USER
 
-    #django settings
-    # /usr/local/bin/django-admin startproject $PROJECT_NAME
-    # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp portal
-    # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp gamemain
-    python3 $WORK_DIR/$PROJECT_NAME/manage.py makemigrations
-    python3 $WORK_DIR/$PROJECT_NAME/manage.py migrate
-    #非対話方式でadminuserが作れるのか要確認
-    #python3 $WORK_DIR/$PROJECT_NAME/manage.py createsuperuser
+ #django settings
+ # /usr/local/bin/django-admin startproject $PROJECT_NAME
+ # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp portal
+ # python3 $WORK_DIR/$PROJECT_NAME/manage.py startapp gamemain
+ python3 $WORK_DIR/$PROJECT_NAME/manage.py makemigrations
+ python3 $WORK_DIR/$PROJECT_NAME/manage.py migrate
+ #非対話方式でadminuserが作れるのか要確認
+ #python3 $WORK_DIR/$PROJECT_NAME/manage.py createsuperuser
 
- systemctl stop postgresql
 
  #setup redis
  wget http://download.redis.io/releases/redis-6.0.7.tar.gz
@@ -76,8 +74,6 @@ APP_ADMIN_USER=$2
  cd $WORK_DIR
  cp $SETTING_FILE_DIR/redis.conf /etc/redis/redis-6.0.7/redis.conf 
  rm -f redis-6.0.7.tar.gz
-
-
 
  #Setting django test environment
  wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm #install for selenium test tools
@@ -91,7 +87,9 @@ APP_ADMIN_USER=$2
  cd $WORK_DIR/$PROJECT_NAME/
  sudo -E  python3 $WORK_DIR/$PROJECT_NAME/manage.py collectstatic  --noinput
 
- 
+ #kill postgres before use supervisord
+ systemctl stop postgresql
+
  #setting supervisord
  cd ~
  /usr/local/bin/supervisord 

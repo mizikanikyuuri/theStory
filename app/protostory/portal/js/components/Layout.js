@@ -1,11 +1,13 @@
 import React from "react";
+import Navbar from 'react-bootstrap/Navbar'
+import { Nav } from 'react-bootstrap';
 
 import Footer from "./Footer/Footer";
 import MainContent from "./MainContent";
 import Home from "./Home/Home";
+import About from "./About/About";
 import ArticleBox from "./Article/ArticleBox";
 import Contact from "./Contact/Contact";
-import { Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header/PortalNav.css';
 
@@ -34,28 +36,40 @@ export default class Layout extends React.Component {
 
         <Router>
           <div>
-            <Nav justify variant="pills" defaultActiveKey="/poral" className="PortalNav">
-              <Nav.Item>
-                <Link to="/portal/" className="nav-link">ホーム</Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Link to="/portal/article-box" className="nav-link">記事一覧</Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Link to="/portal/contact" className="nav-link">コンタクト</Link>
-              </Nav.Item>
-            </Nav>
-            <img
-              width={200}
-              height={200}
-              className="LogoPicture"
-              src="../static/portal/img/logo.jpg"
-              alt="logo picture"
-            />
+            <Navbar bg="dark" expand="lg" >
+              {/* <Navbar.Brand >
+                <img
+                  height={"100%"}
+                  className="LogoPicture"
+                  src="../static/portal/img/the_story_logo_skelton.png"
+                  alt="logo picture"
+                />
+              </Navbar.Brand> */}
+              {/* <Navbar.Toggle />
+              <Navbar.Collapse id="responsive-navbar-nav"> */}
+                <Nav justify variant="pills" fill defaultActiveKey="/poral" className="PortalNav">
+                  <Nav.Item>
+                    <Link to="/portal/" className="nav-link">ホーム</Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Link to="/portal/about" className="nav-link">概要</Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Link to="/portal/article-box" className="nav-link">記事一覧</Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Link to="/portal/contact" className="nav-link">コンタクト</Link>
+                  </Nav.Item>
+                </Nav>
+              {/* </Navbar.Collapse> */}
+            </Navbar>
             <MainContent>
               <Switch>
                 <Route path="/portal/article-box">
                   <ArticleBox />
+                </Route>
+                <Route path="/portal/about">
+                  <About />
                 </Route>
                 <Route path="/portal/contact">
                   <Contact />

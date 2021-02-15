@@ -26,7 +26,7 @@ class BuySteelSwordScenario extends MainAbstractScenario{
     }
     protected _payCost(gameState: GameState): boolean {
         if(gameState.playerOracle===null)
-            throw SyntaxError("ArbeitScenario doEffect was called while player is null");
+            throw SyntaxError("BuySteelSwordScenario doEffect was called while player is null");
         if(gameState.playerOracle.getParam(GoldAmount).current<5)
             return false;
 

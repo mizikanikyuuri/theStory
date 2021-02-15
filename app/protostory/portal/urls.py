@@ -11,6 +11,7 @@ app_name = 'portal'
 
 urlpatterns = [
     path('',home,name='index'),
+    path('about',home,name='index'),
     path('article-box',home,name='index'),
     path('contact',home,name='index'),
     path('login',userLogin,name='login'),
