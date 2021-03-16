@@ -4,9 +4,8 @@ import { HitPoint ,HitPointParameterFookTypes} from "Utilities/Parameters/HitPoi
 import { GameState } from "../GameState/GameState";
 import { MainAbstractScenario} from "../Scenario";
 import { ScenarioCommonFunctions} from "../ScenarioUtilities";
-import { MonsterStates } from "../GameState/MonsterStates";
+import { MonsterStates } from "../GameState/GameCharacter/MonsterStates";
 import { Player } from "GameRules/CommonGameObjects";
-console.log(MainAbstractScenario);
 class RedDragonScenario extends MainAbstractScenario{
     readonly scenarioName: string;
     readonly redDragonState: MonsterStates;

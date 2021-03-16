@@ -13,7 +13,7 @@ import { ScenarioContainer } from 'GameRules/GameState/ScenarioContainer';
 import { GameCardProps } from 'Components/GameCard/GameCard';
 import { DeckState } from 'GameRules/GameState/DeckSpaceState';
 import { SubScenarioSpaceState } from 'GameRules/GameState/SubScenarioSpaceState';
-import { ActionDeterminedResponse, GameMainConnectionResponseEvents, GameMainWebSocket, GameStartResponse } from 'Utilities/WebSocket/GameMainWebSocket';
+import { ActionDeterminedResponse, GameChatResponse, GameMainConnectionResponseEvents, GameMainWebSocket, GameStartResponse } from 'Utilities/WebSocket/GameMainWebSocket';
 import { _sleep} from 'Utilities/Sleep';
 import './Game.css';
 
@@ -26,6 +26,7 @@ export default class Game extends React.Component<{},DisplayingStatus>{
     this.gameMainWebSocket = new GameMainWebSocket(props.webSocketUrl);
     this.gameMainWebSocket.addGameEventListener(GameMainConnectionResponseEvents.GameStart,this.#gameStart);
     this.gameMainWebSocket.addGameEventListener(GameMainConnectionResponseEvents.ActionDetermined,this.#endPhaseProcess);
+    this.gameMainWebSocket.addGameEventListener(GameMainConnectionResponseEvents.GameChat,this.#getChat);
     this.gameState.addObserver(this.#updateStatus,GameStateFookTypes.valueChanged);
     this.gameState.user.getParam(HitPoint).addObserver(whenUserHitPointIsZero(this.gameState),HitPointParameterFookTypes.isZero);
     this.gameState.opponent.getParam(HitPoint).addObserver(whenOpponentHitPointIsZero(this.gameState),HitPointParameterFookTypes.isZero);
@@ -62,17 +63,26 @@ export default class Game extends React.Component<{},DisplayingStatus>{
         }
     );
   }
-  #sendChat=(message:string) =>{
-    let newChat=this.state.userChat.concat([message]);
-      this.setState({
-        userChat:newChat
-      });
-  }
   #gameStart= async (data: GameStartResponse) =>{
     this.setState({
       userName:data.userName,
       opponentName:data.opponentName,
       boardDisable:false,
+    });
+  }
+  #sendChat=(message:string) =>{
+    if(message==="")
+      return;
+    let newChat=this.state.userChat.concat([message]);
+    this.gameMainWebSocket.sendGameChat(message);
+    this.setState({
+      userChat:newChat
+    });
+  }
+  #getChat=async (data: GameChatResponse) =>{
+    let newChat=this.state.opponentChat.concat([data.chatMessage]);
+    this.setState({
+      opponentChat:newChat
     });
   }
   #placeDeckCard = (e: any, cardList: GameCardProps[]) => {
@@ -96,7 +106,7 @@ export default class Game extends React.Component<{},DisplayingStatus>{
     let currentScenario: AbstractScenario;
     data.cardList.forEach(
       cardData=>
-        ScenarioContainer.getScenario(cardData.scenarioName).placeCardWithState(this.gameState,Player.opponent,cardData)
+        ScenarioContainer.getScenario(cardData.scenarioName).placeCardWithState(this.gameState,Player.opponent,cardData.params)
     );
     const startPlayer=this.state.userName===data.startPlayer?"user":"opponent";
     this.gameState.playSpaceState.setStartPlayer(startPlayer);

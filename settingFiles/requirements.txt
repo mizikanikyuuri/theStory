@@ -1,5 +1,6 @@
 Django
 djangorestframework
+bleach
 psycopg2-binary
 channels==2.4.0
 channels_redis

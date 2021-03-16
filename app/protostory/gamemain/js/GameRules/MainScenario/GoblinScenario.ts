@@ -4,7 +4,7 @@ import { HitPoint } from "Utilities/Parameters/HitPoint";
 import { GameState } from "../GameState/GameState";
 import {MainAbstractScenario} from "../Scenario"
 import {ScenarioCommonFunctions} from "../ScenarioUtilities"
-import { MonsterStates } from "../GameState/MonsterStates";
+import { MonsterStates } from "../GameState/GameCharacter/MonsterStates";
 import { GoldAmount } from "Utilities/Parameters/GoldAmount";
 import { Player } from "GameRules/CommonGameObjects";
 

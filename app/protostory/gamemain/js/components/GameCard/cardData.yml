@@ -109,10 +109,74 @@ steelSword:
     cardText: |-
         コスト：なし
         競合：しない
-        効果：所持している鋼の剣一本につき攻撃力5を得る
+        効果：所持している鋼の剣一本につき攻撃力5を得る。
+steelArmor:
+    cardTitle: 鋼の鎧
+    cardText: |-
+        コスト：なし
+        競合：しない
+        効果：所持している鋼の剣一本につ防御力5を得る。
 dragonKiller:
     cardTitle: 竜殺しの剣
     cardText: |-
         コスト：なし
         競合：しない
-        効果：所持している竜殺しの剣一本につき攻撃力20を得る
+        効果：所持している竜殺しの剣一本につき攻撃力20を得る。
+laze:
+    cardTitle: 怠ける
+    cardText: |-
+        コスト：なし
+        クリーンアップ：ふつう
+        競合：なし
+        効果：特になし
+sleepTwice:
+    cardTitle: 二度寝
+    cardText: |-
+        コスト：なし
+        クリーンアップ：ふつう
+        競合：なし
+        効果：特になし
+buyFormalWear:
+    cardTitle: 礼服を買う
+    cardText: |-
+        コスト:5
+        クリーンアップ：ふつう
+        競合：後方消滅
+        効果：礼服を獲得する。
+formalWear:
+    cardTitle: 礼服
+    cardText: |-
+        コスト：なし
+        競合：しない
+        効果：所持している礼服1つにつき魅力1を得る。
+visitWizeOldMen:
+    cardTitle: 賢者を訪ねる
+    cardText: |-
+        コスト:なし
+        クリーンアップ：ふつう
+        競合：後方消滅
+        効果：賢者の助言を獲得する。
+wizeOldMenAdvice:
+    cardTitle: 賢者の助言
+    cardText: |-
+        コスト：アーティファクトから薬草を消費する。
+        競合：しない
+        効果：使用:次回の戦闘では相手に追加で2回攻撃する。
+visitBeautySalon:
+    cardTitle: 美容院に行く
+    cardText: |-
+        コスト：2
+        競合：しない
+        効果：使用者はこのターン魅力を1得る。
+giveBribe:
+    cardTitle: 賄賂を渡す
+    cardText: |-
+        コスト：5
+        競合：後方消滅
+        効果：癒着を獲得する。
+cozyRelationship:
+    cardTitle: 癒着
+    cardText: |-
+        コスト：なし
+        競合：しない
+        効果：便宜を図ってもらえる。

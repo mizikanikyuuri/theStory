@@ -4,7 +4,7 @@ import { PlaySpaceState, PlacedCardState } from "./PlaySpaceState"
 import { DeckSpaceState } from "./DeckSpaceState"
 import { SubScenarioSpaceState } from "./SubScenarioSpaceState"
 import { MultiFookObservable } from "Utilities/ObservedState"
-import { OracleStates } from './OracleStates'
+import { OracleStates } from './GameCharacter/OracleStates'
 import {  InputQueueSet  } from "./InputQueue";
 class GameState extends MultiFookObservable<GameStateFookTypes>{
     #state = {
@@ -61,6 +61,7 @@ class GameState extends MultiFookObservable<GameStateFookTypes>{
         this.#state[stateName] = setValue;
     }
     roundInit() {
+        this.notifyObserver([GameStateFookTypes.roundInit])
         this.playSpaceState.roundInit();
         this.deckSpaceState.roundInit(this);
         this.goalCardDeckSpaceState.roundInit(this);

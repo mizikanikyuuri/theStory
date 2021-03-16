@@ -13,11 +13,10 @@ enum DeckType {
 }
 enum GameStateFookTypes{
   "valueChanged",
+  "roundInit",
   "gameEnded"
 }
-enum PlayerStateFookTypes{
-  "valueChanged"
-}
+
 enum PlaySpaceStateFookTypes{
   "valueChanged"
 }
@@ -31,6 +30,16 @@ enum DeckSpaceStateFookTypes{
 enum SubScenarioSpaceStateFookTypes{
   "valueChanged",
   "addScenario",
+}
+enum CharacterStateFookTypes{
+  "valueChanged",
+  "beforeAttack",
+  "afterAttack",
+  "beforeBattle",
+  "afterBattle",
+}
+enum OracleStateFookTypes{
+  "valueChanged",
 }
 enum MonsterStateFookTypes{
   "valueChanged"
@@ -63,18 +72,25 @@ const InitialPlayerStatus={
 }
 
 const InitialDecks=new Map([
-  [DeckType.market,["prayer", "saintClause", "godPunishment", "stayChildGirl"]],
-  [DeckType.dungen,["slime", "goblin", "orc"]],
-  [DeckType.church,["arbeit", "buyHerb", "buySteelSword", "buyDragonKiller"]],
+  // [DeckType.market,["prayer", "saintClause", "godPunishment", "stayChildGirl"]],
+  // [DeckType.dungen,["slime", "goblin", "orc"]],
+  // [DeckType.church,["arbeit", "buyHerb", "buySteelSword", "buyDragonKiller"]],
+
   // [DeckType.market,["prayer", "saintClause", "godPunishment", "stayChildGirl"]],
   // [DeckType.dungen,["slime", "goblin", "orc"]],
   // [DeckType.church,["arbeit", "buyHerb", "buySteelSword", "buySteelArmor", "dragonKiller"]],
+
+  [DeckType.market,["buySteelSword", "buyHerb", "buySteelArmor", "visitBeautySalon"]],
+  [DeckType.dungen,["sleepTwice", "goblin", "orc","giveBribe"]],
+  [DeckType.church,["laze", "buyFormalWear", "saintClause", "visitWizeOldMen"]],
 ]);
 export {Player,DeckType
-        ,GameStateFookTypes,PlayerStateFookTypes
+        ,GameStateFookTypes
         ,PlaySpaceStateFookTypes
         ,DeckSpaceStateFookTypes
         ,SubScenarioSpaceStateFookTypes
+        ,OracleStateFookTypes
+        ,CharacterStateFookTypes
         ,MonsterStateFookTypes
         ,PlacedCardStateFookTypes
         ,DisplayingStatus,InitialPlayerStatus,InitialDecks}

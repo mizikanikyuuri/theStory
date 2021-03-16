@@ -23,6 +23,9 @@ class AttackPower extends GameParameter< AttackPowerParameterFookTypes>{
     toString(): string {
         return this.#attackPower.toString();
     }
+    toConstructParameter(): Array<any> {
+        return [this.current];
+    }
     change(amount:number){
         if(this.#attackPower+amount<0)
             this.set(0);

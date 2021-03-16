@@ -4,3 +4,4 @@
 .vagrant/
 .vscode/
 /awsSettingFiles/
+_pycache_

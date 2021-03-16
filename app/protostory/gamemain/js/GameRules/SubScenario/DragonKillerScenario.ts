@@ -31,7 +31,6 @@ class DragonKillerScenario extends SubAbstractScenario{
         return;
     }
     protected _cleanUp(gameState:GameState):void{
-        ScenarioCommonFunctions.commonCleanUp(gameState);
     }
     increaseDragonKiller(gameState:GameState,amount:number,player:Player.user|Player.opponent):void{
         console.log("new amount"+this.dragonKillerNum.get(player)+amount);

@@ -24,6 +24,9 @@ class GoldAmount extends GameParameter<GoldAmountParameterFookTypes>{
     toString(): string {
         return this.#goldAmount.toString();
     }
+    toConstructParameter(): Array<any> {
+        return [this.#goldAmount];
+    }
     change(amount:number){
         if(this.#goldAmount+amount<0)
             this.set(0);

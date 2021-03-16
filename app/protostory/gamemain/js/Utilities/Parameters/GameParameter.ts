@@ -6,5 +6,6 @@ abstract class GameParameter<FookTypes> extends MultiFookObservable<FookTypes> {
         super();
     }
     abstract toString():string;
+    abstract toConstructParameter():Array<any>;
 }
 export {GameParameter}

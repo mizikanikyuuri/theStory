@@ -1,13 +1,13 @@
-import { SaintClause } from "Utilities/Parameters/SaintClause";
+import WizeOldMenAdviceScenario from "GameRules/SubScenario/WizeOldMenAdviceScenario";
 import { Player } from "../CommonGameObjects";
 import { GameState } from "../GameState/GameState";
 import {MainAbstractScenario} from "../Scenario"
 import {ScenarioCommonFunctions} from "../ScenarioUtilities"
-class SaintClauseScenario extends MainAbstractScenario{
+class VisitWizeOldMenScenario extends MainAbstractScenario{
     readonly scenarioName: string;
     constructor(){
         super();
-        this.scenarioName="saintClause";
+        this.scenarioName="visitWizeOldMen";
     }
     protected _setToDeck(gameState: GameState): void {
         return;
@@ -27,19 +27,15 @@ class SaintClauseScenario extends MainAbstractScenario{
         return true;
     }
     protected _doEffect(gameState: GameState): void {
-        console.log("spelling saint clause.");
+        console.log("visit wize old men.");
         const player=gameState.playSpaceState.player;
         if(player===Player.null)
-            throw SyntaxError("saintClause doEffect was called while player is null");
-        if(gameState.playerOracle.getParam(SaintClause)===null)
-            this.addSaintClauseState(gameState);
-        gameState.playerOracle.getParam(SaintClause).activate();
+            throw SyntaxError("visitWizeOldMen doEffect was called while player is null");
+        gameState.subScenarioSpaceState.addSubScenario(player,"harb",gameState);
+        WizeOldMenAdviceScenario.activateAdvice(gameState,player);
     }
     protected _cleanUp(gameState:GameState):void{
         ScenarioCommonFunctions.commonCleanUp(gameState);
     }
-    addSaintClauseState(gameState: GameState){
-        gameState.playerOracle.addNewParameter(new SaintClause());
-    }
 }
-export default new SaintClauseScenario();
+export default new VisitWizeOldMenScenario();

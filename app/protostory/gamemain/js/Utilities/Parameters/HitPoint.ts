@@ -46,6 +46,9 @@ class HitPoint extends GameParameter<HitPointParameterFookTypes>{
     toString(): string {
         return this.#currentHitPoint+"/"+this.#maxHitPoint;
     }
+    toConstructParameter(): Array<any> {
+        return [this.#currentHitPoint,this.#maxHitPoint];
+    }
     change(amount:number){
         if(this.#currentHitPoint+amount<0)
             this.set(0);

@@ -1,13 +1,14 @@
-import { SaintClause } from "Utilities/Parameters/SaintClause";
+import { GoldAmount } from "Utilities/Parameters/GoldAmount";
 import { Player } from "../CommonGameObjects";
 import { GameState } from "../GameState/GameState";
 import {MainAbstractScenario} from "../Scenario"
 import {ScenarioCommonFunctions} from "../ScenarioUtilities"
-class SaintClauseScenario extends MainAbstractScenario{
+import SteelArmorScenario from "../SubScenario/SteelArmorScenario"
+class BuySteelArmorScenario extends MainAbstractScenario{
     readonly scenarioName: string;
     constructor(){
         super();
-        this.scenarioName="saintClause";
+        this.scenarioName="buySteelArmor";
     }
     protected _setToDeck(gameState: GameState): void {
         return;
@@ -24,22 +25,24 @@ class SaintClauseScenario extends MainAbstractScenario{
         }
     }
     protected _payCost(gameState: GameState): boolean {
+        if(gameState.playerOracle===null)
+            throw SyntaxError("BuySteelArmorScenario doEffect was called while player is null");
+        if(gameState.playerOracle.getParam(GoldAmount).current<8)
+            return false;
+
+        gameState.playerOracle.getParam(GoldAmount).change(-8);
         return true;
     }
     protected _doEffect(gameState: GameState): void {
-        console.log("spelling saint clause.");
+        console.log("buying steelArmor");
         const player=gameState.playSpaceState.player;
         if(player===Player.null)
-            throw SyntaxError("saintClause doEffect was called while player is null");
-        if(gameState.playerOracle.getParam(SaintClause)===null)
-            this.addSaintClauseState(gameState);
-        gameState.playerOracle.getParam(SaintClause).activate();
+            throw SyntaxError("BuySteelArmorScenario doEffect was called while player is null");
+        gameState.subScenarioSpaceState.addSubScenario(player,"steelArmor",gameState);
+        SteelArmorScenario.increaseSteelArmor(gameState,1,player);
     }
     protected _cleanUp(gameState:GameState):void{
         ScenarioCommonFunctions.commonCleanUp(gameState);
     }
-    addSaintClauseState(gameState: GameState){
-        gameState.playerOracle.addNewParameter(new SaintClause());
-    }
 }
-export default new SaintClauseScenario();
+export default new BuySteelArmorScenario();

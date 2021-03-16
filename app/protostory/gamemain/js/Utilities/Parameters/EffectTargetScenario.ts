@@ -19,6 +19,9 @@ class EffectTargetScenario extends GameParameter< EffectTargetScenarioFookTypes>
     toString(): string {
         return this.#targetList.join().toString();
     }
+    toConstructParameter(): Array<any> {
+        return [this.targetList];
+    }
     addTarget(target:string){
         this.#targetList.push(target);
     }

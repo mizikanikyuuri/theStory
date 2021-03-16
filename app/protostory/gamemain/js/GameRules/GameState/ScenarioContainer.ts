@@ -1,5 +1,6 @@
 
 import _ from "lodash"
+//main cards
 import RedDragonScenario from "GameRules/MainScenario/RedDragonScenario"
 import ArbeitScenario from "GameRules/MainScenario/ArbeitScenario"
 import SlimeScenario from "GameRules/MainScenario/SlimeScenario"
@@ -11,10 +12,23 @@ import OrcScenario from "GameRules/MainScenario/OrcScenario"
 import GodPunishmentScenario from "GameRules/MainScenario/GodPunishmentScenario"
 import BuySteelSwordScenario from "GameRules/MainScenario/BuySteelSwordScenario"
 import StayChildGirlScenario from "GameRules/MainScenario/StayChildGirlScenario"
+import BuySteelArmorScenario from "GameRules/MainScenario/BuySteelArmorScenario"
 import BuyDragonKillerScenario from "GameRules/MainScenario/BuyDragonKillerScenario"
 import HarbScenario from "GameRules/SubScenario/HarbScenario"
 import SteelSwordScenario from "GameRules/SubScenario/SteelSwordScenario"
+import SteelArmorScenario from "GameRules/SubScenario/SteelArmorScenario"
 import DragonKillerScenario from "GameRules/SubScenario/DragonKillerScenario"
+
+//tutorial only cards
+import LazeScenario from "GameRules/MainScenario/LazeScenario"
+import SleepTwiceScenario from "GameRules/MainScenario/SleepTwiceScenario"
+import BuyFormalWearScenario from "GameRules/MainScenario/BuyFormalWearScenario"
+import VisitWizeOldMenScenario from"GameRules/MainScenario/VisitWizeOldMenScenario"
+import VisitBeautySalonScenario from "GameRules/MainScenario/VisitBeautySalonScenario"
+import GiveBribeScenario from "GameRules/MainScenario/GiveBribeScenario"
+import WizeOldMenAdviceScenario from"GameRules/SubScenario/WizeOldMenAdviceScenario"
+import FormalWearScenario from "GameRules/SubScenario/FormalWearScenario"
+import CozyRelationshipScenario from "GameRules/SubScenario/CozyRelationshipScenario"
 import { AbstractScenario,ScenarioFooks, MainAbstractScenario, SubAbstractScenario } from "GameRules/Scenario"
 const ScenarioContainer = new class {
     #scenarioList: Array<AbstractScenario>
@@ -35,10 +49,22 @@ const ScenarioContainer = new class {
         this.#mainScenarioList.push(GodPunishmentScenario);
         this.#mainScenarioList.push(BuySteelSwordScenario);
         this.#mainScenarioList.push(StayChildGirlScenario);
+        this.#mainScenarioList.push(BuySteelArmorScenario);
         this.#mainScenarioList.push(BuyDragonKillerScenario);
+        this.#mainScenarioList.push(LazeScenario);
+        this.#mainScenarioList.push(SleepTwiceScenario);
+        this.#mainScenarioList.push(BuyFormalWearScenario);
+        this.#mainScenarioList.push(VisitBeautySalonScenario);
+        this.#mainScenarioList.push(VisitWizeOldMenScenario);
+        this.#mainScenarioList.push(GiveBribeScenario);
+
         this.#subScenarioList.push(HarbScenario);
         this.#subScenarioList.push(SteelSwordScenario);
+        this.#subScenarioList.push(SteelArmorScenario);
         this.#subScenarioList.push(DragonKillerScenario);
+        this.#subScenarioList.push(WizeOldMenAdviceScenario);
+        this.#subScenarioList.push(FormalWearScenario);
+        this.#subScenarioList.push(CozyRelationshipScenario);
     }
     getScenario(scenarioName: string): AbstractScenario {
         const fullScenarioList = _.union(this.#scenarioList, this.#mainScenarioList, this.#subScenarioList);

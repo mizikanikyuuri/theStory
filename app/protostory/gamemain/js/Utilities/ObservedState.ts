@@ -1,50 +1,80 @@
+
+/**
+ * observable function use argument observable target.
+ * return value means deny observe. return false remove function from call back Array
+ */
+type ObservableCallBackFunc<T> = (target: T) => boolean|void;
+type ObservableCallBackFuncWithAppend<T> = (target: T,appned?) => boolean|void;
+
 interface ObservableInterface{
-    addObserver( callBackFunc: (target: this) => void): void;
-    deleteObserver(callBackFunc: (target: this) => void): void;
+    addObserver( callBackFunc: ObservableCallBackFunc<this>): void;
+    deleteObserver(callBackFunc: ObservableCallBackFunc<this>): void;
     notifyObserver():void;
 }
 interface MultiFookObservableInterface< FookTypes> extends ObservableInterface{
-    addObserver(callBackFunc: (target: this,fook?: FookTypes) => void): void;
-    deleteObserver(callBackFunc: (target: this) => void,fook?: FookTypes): void;
+    addObserver(callBackFunc: ObservableCallBackFunc<this>): void;
+    deleteObserver(callBackFunc: ObservableCallBackFuncWithAppend<this>,fook?: FookTypes): void;
     notifyObserver(fookArray?: Array<FookTypes>):void;
 }
+
 class Observable implements ObservableInterface{
-    #callBackFunctions: Array<(target: this) => void>
+    #callBackFunctions: Array<ObservableCallBackFunc<this>>
     constructor(){
         this.#callBackFunctions=[];
     }
-    addObserver(callBackFunc: (target: this) => void): void {
+    addObserver(callBackFunc: ObservableCallBackFunc<this>): void {
         this.#callBackFunctions.push(callBackFunc);
     }
-    deleteObserver(callBackFunc: (target: this) => void): void {
+    deleteObserver(callBackFunc: ObservableCallBackFunc<this>): void {
         const functionId = this.#callBackFunctions.indexOf(callBackFunc);
         if (functionId === -1)
             throw Error("ObservedStateTrait.deleteObserver could not found element " + callBackFunc);
         this.#callBackFunctions.splice(functionId, 1);
     }
     notifyObserver(): void {
-        this.#callBackFunctions.forEach(callBackFunc => callBackFunc(this));
+        this.#callBackFunctions.forEach(
+                (callBackFunc) =>{
+                    if(callBackFunc(this)===false)
+                        this.deleteObserver(callBackFunc);
+                } 
+            );
     }
 
 }
 class MultiFookObservable<FookTypes> extends Observable implements MultiFookObservableInterface<FookTypes>{
-    #callBackFunctions: Array<[FookTypes, (target: this) => void]>
+    #callBackFunctions: Array<[FookTypes, ObservableCallBackFuncWithAppend<this>]>
     constructor() {
         super();
         this.#callBackFunctions=[];
     }
-    addObserver( callBackFunc: (target: this) => void,fook: FookTypes=null): void {
+    addObserver( callBackFunc: ObservableCallBackFuncWithAppend<this>,fook: FookTypes=null): void {
         this.#callBackFunctions.push([fook, callBackFunc]);
     }
-    deleteObserver( callBackFunc: (target: this) => void,fook: FookTypes=null): void {
+    deleteObserver( callBackFunc: ObservableCallBackFuncWithAppend<this>,fook: FookTypes=null): void {
         const functionId = this.#callBackFunctions.indexOf([fook, callBackFunc]);
         if (functionId === -1)
             throw Error("ObservedStateTrait.deleteObserver could not found element " + callBackFunc);
         this.#callBackFunctions.splice(functionId, 1);
     }
-    notifyObserver(fookArray: Array<FookTypes>=null):void {
+    notifyObserver(fookArray: Array<FookTypes>=null,append={}):void {
+        if(fookArray==null){
+            this.#callBackFunctions.forEach(
+                (callBackFuncArray) =>{
+                    if(callBackFuncArray[1](this,append)===false){
+                        this.deleteObserver(callBackFuncArray[1]);
+                    }
+                }
+            );
+            return;
+        }
         this.#callBackFunctions.filter(callBackFuncArray => fookArray.includes(callBackFuncArray[0])||callBackFuncArray[0] === null)
-            .forEach(callBackFuncArray => callBackFuncArray[1](this));
+            .forEach(
+                (callBackFuncArray) => {
+                    if(callBackFuncArray[1](this,append)===false){
+                        this.deleteObserver(callBackFuncArray[1]);
+                    }
+                }
+            );
     }
 }
 export{ObservableInterface, MultiFookObservableInterface,Observable,MultiFookObservable}

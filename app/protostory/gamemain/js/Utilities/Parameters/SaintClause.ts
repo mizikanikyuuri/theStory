@@ -5,15 +5,21 @@ enum SaintCaluseParameterFookTypes {
 class SaintClause extends GameParameter<SaintCaluseParameterFookTypes>{
     static readonly paramName="saintClause";
     #saintClause:"valid"|"invalid";
-    constructor(){
+    constructor(defaultState:"valid"|"invalid"="invalid"){
         super();
-        this.deactivate();
+        if(defaultState==="valid")
+            this.activate();
+        else
+            this.deactivate();
     }
     get current():"valid"|"invalid"{
         return this.#saintClause;
     }
     toString(): string {
         return this.#saintClause.toString();
+    }
+    toConstructParameter(): Array<any> {
+        return [this.#saintClause];
     }
     activate(){
         this.#saintClause="valid";

@@ -1,11 +1,10 @@
-import _ from 'lodash'
-import { MonsterStateFookTypes } from "../CommonGameObjects"
 import {MultiFookObservable} from "Utilities/ObservedState"
 import { GameParameter } from 'Utilities/Parameters/GameParameter'
 import {HitPoint} from "Utilities/Parameters/HitPoint"
 import {AttackPower} from "Utilities/Parameters/AttackPower"
 import {DefensePower} from "Utilities/Parameters/DefensePower"
-class MonsterStates extends MultiFookObservable<MonsterStateFookTypes>{
+import { CharacterStateFookTypes } from "GameRules/CommonGameObjects"
+class CharacterStates<T> extends MultiFookObservable<CharacterStateFookTypes|T>{
     #params={};
     constructor(hitPoint:HitPoint,attackPower:AttackPower,defensePower:DefensePower) {
         super();
@@ -35,4 +34,4 @@ class MonsterStates extends MultiFookObservable<MonsterStateFookTypes>{
     }
 }
 
-export {MonsterStates}
+export {CharacterStates}

@@ -1,6 +1,9 @@
 div.player-badge-icon{
     float:left;
 }
+span.player-badge-name{
+    width: 30rem;
+}
 span.badge{
     font-size: 2rem;
 }

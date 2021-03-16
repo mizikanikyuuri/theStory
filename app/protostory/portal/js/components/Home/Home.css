@@ -12,9 +12,14 @@ div.user-sticker {
   top:65%;
   left:75%;
 }
-div.start-sticker {
+div.single-play-sticker {
   position:absolute;
   top:75%;
+  left:75%;
+}
+div.start-sticker {
+  position:absolute;
+  top:85%;
   left:75%;
 }
 div.user-register {

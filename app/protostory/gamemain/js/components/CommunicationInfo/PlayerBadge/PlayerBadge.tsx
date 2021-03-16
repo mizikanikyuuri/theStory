@@ -11,7 +11,7 @@ function PlayerBadge({ className = "", iconType=PlayerIconType.warrior,playerNam
     return (
         <div className={"player-badge "+className}>
             <PlayerIcon className={"player-badge-icon"} iconType={iconType}/>
-            <Badge variant="secondary">{playerName}</Badge>
+            <Badge className={"player-badge-name"} variant="secondary">{playerName}</Badge>
         </div>
     );
 }

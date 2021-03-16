@@ -4,7 +4,7 @@ import { DefensePower } from "Utilities/Parameters/DefensePower";
 import { GoldAmount } from "Utilities/Parameters/GoldAmount";
 import { HitPoint } from "Utilities/Parameters/HitPoint";
 import { GameState } from "../GameState/GameState";
-import { MonsterStates } from "../GameState/MonsterStates";
+import { MonsterStates } from "../GameState/GameCharacter/MonsterStates";
 import {MainAbstractScenario} from "../Scenario"
 import {ScenarioCommonFunctions} from "../ScenarioUtilities"
 class SlimeScenario extends MainAbstractScenario{

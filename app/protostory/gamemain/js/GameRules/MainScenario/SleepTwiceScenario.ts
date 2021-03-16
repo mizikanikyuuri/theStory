@@ -1,13 +1,12 @@
-import { SaintClause } from "Utilities/Parameters/SaintClause";
-import { Player } from "../CommonGameObjects";
+import { Player } from "GameRules/CommonGameObjects";
 import { GameState } from "../GameState/GameState";
 import {MainAbstractScenario} from "../Scenario"
 import {ScenarioCommonFunctions} from "../ScenarioUtilities"
-class SaintClauseScenario extends MainAbstractScenario{
+class SleepTwiceScenario extends MainAbstractScenario{
     readonly scenarioName: string;
     constructor(){
         super();
-        this.scenarioName="saintClause";
+        this.scenarioName="sleepTwice";
     }
     protected _setToDeck(gameState: GameState): void {
         return;
@@ -19,27 +18,17 @@ class SaintClauseScenario extends MainAbstractScenario{
         gameState.playSpaceState.addCard(player, this.scenarioName);
     }
     protected _prePlay(gameState: GameState): void {
-        if(ScenarioCommonFunctions.checkPrePlayedScenario(this.scenarioName,gameState)){
-            gameState.playSpaceState.prePlayingCard.validity="invalid";
-        }
+        return;
     }
     protected _payCost(gameState: GameState): boolean {
         return true;
     }
     protected _doEffect(gameState: GameState): void {
-        console.log("spelling saint clause.");
-        const player=gameState.playSpaceState.player;
-        if(player===Player.null)
-            throw SyntaxError("saintClause doEffect was called while player is null");
-        if(gameState.playerOracle.getParam(SaintClause)===null)
-            this.addSaintClauseState(gameState);
-        gameState.playerOracle.getParam(SaintClause).activate();
+        console.log("get up in morning is too tough");
+        return;
     }
     protected _cleanUp(gameState:GameState):void{
         ScenarioCommonFunctions.commonCleanUp(gameState);
     }
-    addSaintClauseState(gameState: GameState){
-        gameState.playerOracle.addNewParameter(new SaintClause());
-    }
 }
-export default new SaintClauseScenario();
+export default new SleepTwiceScenario();

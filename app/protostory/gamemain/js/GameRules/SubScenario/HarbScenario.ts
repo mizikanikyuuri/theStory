@@ -38,7 +38,6 @@ class HarbScenario extends SubAbstractScenario{
         gameState.playerOracle.getParam(HitPoint).change(10);
     }
     protected _cleanUp(gameState:GameState):void{
-        ScenarioCommonFunctions.commonCleanUp(gameState);
     }
     increaseHarb(gameState:GameState,amount:number,player:Player.user|Player.opponent):void{
         this.harbNum.set(player,this.harbNum[player]+amount);

@@ -1,17 +1,17 @@
-import { AttackPower } from "Utilities/Parameters/AttackPower";
+import { DefensePower } from "Utilities/Parameters/DefensePower";
 import { Player } from "../CommonGameObjects";
 import { GameState } from "../GameState/GameState";
 import {SubAbstractScenario} from "../Scenario"
 import {ScenarioCommonFunctions} from "../ScenarioUtilities"
-class SteelSwordScenario extends SubAbstractScenario{
+class SteelArmorScenario extends SubAbstractScenario{
     readonly scenarioName: string;
-    readonly steelSwordNum:Map<Player,number>;
+    readonly steelArmorNum:Map<Player,number>;
     constructor(){
         super();
-        this.scenarioName="steelSword";
-        this.steelSwordNum=new Map();
-        this.steelSwordNum.set(Player.user,0);
-        this.steelSwordNum.set(Player.opponent,0);
+        this.scenarioName="steelArmor";
+        this.steelArmorNum=new Map();
+        this.steelArmorNum.set(Player.user,0);
+        this.steelArmorNum.set(Player.opponent,0);
     }
     protected _setToSubScenarioSpace(gameState: GameState,player:Player): void {
     }
@@ -32,23 +32,23 @@ class SteelSwordScenario extends SubAbstractScenario{
     }
     protected _cleanUp(gameState:GameState):void{
     }
-    increaseSteelSword(gameState:GameState,amount:number,player:Player.user|Player.opponent):void{
-        console.log("new amount"+this.steelSwordNum.get(player)+amount);
-        this.steelSwordNum.set(player,this.steelSwordNum.get(player)+amount);
+    increaseSteelArmor(gameState:GameState,amount:number,player:Player.user|Player.opponent):void{
+        console.log("new amount"+this.steelArmorNum.get(player)+amount);
+        this.steelArmorNum.set(player,this.steelArmorNum.get(player)+amount);
         if(player===Player.user)
-            gameState.user.getParam(AttackPower).change(5*amount);
+            gameState.user.getParam(DefensePower).change(5*amount);
         else
-            gameState.opponent.getParam(AttackPower).change(5*amount);
+            gameState.opponent.getParam(DefensePower).change(5*amount);
     }
-    decreaseSteelSword(gameState:GameState,amount:number,player:Player.user|Player.opponent):boolean{
-        if(this.steelSwordNum[player]<amount)
+    decreaseSteelArmor(gameState:GameState,amount:number,player:Player.user|Player.opponent):boolean{
+        if(this.steelArmorNum[player]<amount)
             return false;
-        this.steelSwordNum.set(player,this.steelSwordNum.get(player)-amount);
+        this.steelArmorNum.set(player,this.steelArmorNum.get(player)-amount);
         if(player===Player.user)
-            gameState.user.getParam(AttackPower).change(-5*amount);
+            gameState.user.getParam(DefensePower).change(-5*amount);
         else
-            gameState.opponent.getParam(AttackPower).change(-5*amount);
+            gameState.opponent.getParam(DefensePower).change(-5*amount);
         return true;
     }
 }
-export default new SteelSwordScenario();
+export default new SteelArmorScenario();

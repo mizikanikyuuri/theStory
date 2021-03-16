@@ -23,6 +23,9 @@ class DefensePower extends GameParameter<DefensePowerParameterFookTypes>{
     toString(): string {
         return this.#defensePower.toString();
     }
+    toConstructParameter(): Array<any> {
+        return [this.current];
+    }
     change(amount:number){
         if(this.#defensePower+amount<0)
             this.set(0);

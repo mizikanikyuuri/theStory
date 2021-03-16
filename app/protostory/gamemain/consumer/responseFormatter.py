@@ -1,10 +1,11 @@
 # gamemain/responseFormatter.py
 import json
+import bleach
 def gameStartResponse(userName:str,opponentName:str):
     returnObject={
         'gameEventType':"GameStart",
-        'userName':userName,
-        'opponentName':opponentName,
+        'userName':bleach.clean(userName),
+        'opponentName':bleach.clean(opponentName),
     }
     return json.dumps(returnObject)
 def actionDeterminedResponse(startPlayer,cardList):
@@ -14,8 +15,15 @@ def actionDeterminedResponse(startPlayer,cardList):
         'cardList':cardList
     }
     return json.dumps(returnObject)
-def gamerOverResponse():
+def gameOverResponse():
     returnObject={
         'gameEventType':"GameOver"
+    }
+    return json.dumps(returnObject)
+
+def gameChatResponse(chatMessage):
+    returnObject={
+        'gameEventType':"GameChat",
+        'chatMessage':bleach.clean(chatMessage),
     }
     return json.dumps(returnObject)

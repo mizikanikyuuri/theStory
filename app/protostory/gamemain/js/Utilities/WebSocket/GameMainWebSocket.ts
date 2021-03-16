@@ -1,9 +1,10 @@
 import { Player } from "GameRules/CommonGameObjects";
-import { PlacedCardState } from "GameRules/GameState/PlacedCardState";
+import { PlacedCardState, WebSocketFormPlacedCardState } from "GameRules/GameState/PlacedCardState";
 enum GameMainConnectionResponseEvents{
     "GameStart"="GameStart",
     "ActionDetermined"="ActionDetermined",
     "GameOver"="GameOver",
+    "GameChat"="GameChat",
 }
 type GameStartResponse={
     userName:string,
@@ -11,10 +12,13 @@ type GameStartResponse={
 }
 type ActionDeterminedResponse={
     startPlayer:string
-    cardList:Array<{scenarioName:string}>,
+    cardList:Array<WebSocketFormPlacedCardState>,
 }
 type GameOverResponse={
 
+}
+type GameChatResponse={
+    chatMessage:string
 }
 class GameMainWebSocket extends WebSocket{
     constructor(url:string) {
@@ -31,6 +35,12 @@ class GameMainWebSocket extends WebSocket{
         this.send(JSON.stringify({
             message: "TurnEnded",
             cardData: cardList
+        }));
+    }
+    sendGameChat(message:string){
+        this.send(JSON.stringify({
+            message: "GameChat",
+            chatMessage: message
         }));
     }
     gameEnd(){
@@ -52,4 +62,4 @@ class GameMainWebSocket extends WebSocket{
         this.addEventListener("message",settingCallBack);
     }
 }
-export{GameStartResponse,ActionDeterminedResponse,GameOverResponse,GameMainConnectionResponseEvents,GameMainWebSocket}
+export{GameStartResponse,GameChatResponse,ActionDeterminedResponse,GameOverResponse,GameMainConnectionResponseEvents,GameMainWebSocket}
